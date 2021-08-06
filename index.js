@@ -19,7 +19,7 @@ const config = {
 const Discord = require("discord.js");
 const client = new Discord.Client({
   disableMentions: "everyone"
-});
+}); 
 
 // distube
 const Distube = require("distube");
@@ -43,7 +43,7 @@ client.on("ready", () => {
   if (!channel.type === "voice") return console.log("Invalid channel.");
   
   distube.play(null, "https://www.youtube.com/watch?v=5qap5aO4i9A");
-  distube.setRepeatMode()
+  distube.isPlaying(channel)
   
 });
 
