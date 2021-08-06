@@ -20,13 +20,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client({
   disableMentions: "everyone"
 }); 
-
-// distube
-const Distube = require("distube");
-let distube = new Distube(client, {
-  searchSongs: false,
-  leaveOnEmpty: false
-})
+let { Collection } = require("discord.js");
+let MUSIC = new Collection();
 
 let channel;
 
@@ -42,9 +37,6 @@ client.on("ready", () => {
   if (!channel) return console.log("Invalid channel.");
   if (!channel.type === "voice") return console.log("Invalid channel.");
   
-  distube.play(null, "https://www.youtube.com/watch?v=5qap5aO4i9A");
-  distube.isPlaying(channel)
-  
 });
 
 client.on("voiceStateUpdate", async (oldV, newV) => {
@@ -52,3 +44,20 @@ client.on("voiceStateUpdate", async (oldV, newV) => {
   
   
 });
+
+async function handle() {
+  if (!channel) return console.log("Invalid channel.");
+  if (!channel.type === "voice") return console.log("Invalid channel.");  
+  
+  let Struct = {
+    vc: channel
+  }
+
+			const dispatcher = queue.connection.play(ytdl(song.url))
+				.on('finish', () => {
+          handle();
+				})
+				.on('error', error => console.error(error));
+			dispatcher.setVolumeLogarithmic(queue.volume / 5);
+			queue.textChannel.send(`🎶 Start playing: **${song.title}**`);  
+}
