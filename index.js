@@ -44,7 +44,11 @@ client.on("ready", () => {
 
 client.on("voiceStateUpdate", async (oldV, newV) => {
   
+  if (newV.member.id !== client.user.id) return;
   
+  if (oldV.channel.id == channel.id && !newV.channel) {
+    handle()
+  }
   
 });
 
