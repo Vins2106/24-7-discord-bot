@@ -22,6 +22,7 @@ const client = new Discord.Client({
 }); 
 let { Collection } = require("discord.js");
 let MUSIC = new Collection();
+let ytdl = require("ytdl-core")
 
 let channel;
 
@@ -37,6 +38,8 @@ client.on("ready", () => {
   if (!channel) return console.log("Invalid channel.");
   if (!channel.type === "voice") return console.log("Invalid channel.");
   
+  handle()
+  
 });
 
 client.on("voiceStateUpdate", async (oldV, newV) => {
@@ -50,14 +53,18 @@ async function handle() {
   if (!channel.type === "voice") return console.log("Invalid channel.");  
   
   let Struct = {
-    vc: channel
+    vc: channel,
+    c: await channel.join()
   }
 
-			const dispatcher = queue.connection.play(ytdl(song.url))
+  play()
+  
+  async function play() {
+			const dispatcher = Struct.c.play(ytdl('https://www.youtube.com/watch?v=5qap5aO4i9A'))
 				.on('finish', () => {
-          handle();
+          play(); 
 				})
 				.on('error', error => console.error(error));
-			dispatcher.setVolumeLogarithmic(queue.volume / 5);
-			queue.textChannel.send(`🎶 Start playing: **${song.title}**`);  
+			dispatcher.setVolumeLogarithmic(100 / 100);    
+  }
 }

@@ -9,7 +9,9 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "distube": "^2.8.15",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "ytdl-core": "^4.9.1",
+    "@discordjs/opus": "^0.5.3"
   },
   "engines": {
     "node": "12.x"
