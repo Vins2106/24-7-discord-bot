@@ -19,4 +19,5 @@
 ## .env
 ```
 TOKEN=bot_token
+CHANNEL=voice_channel_id
 ```
